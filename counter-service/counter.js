@@ -4,11 +4,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 const pool = new Pool({
-  user: process.env.DB_USER || 'user',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'postgres',
-  password: process.env.DB_PASSWORD || 'mysecretpassword',
-  port: process.env.DB_PORT || 5432,
+  user: process.env.POSTGRES_USER || 'postgres',
+  host: process.env.POSTGRES_HOST || 'localhost',
+  database: process.env.POSTGRES_NAME || 'postgres',
+  password: process.env.POSTGRES_PASSWORD || 'mysecretpassword',
+  port: process.env.POSTGRES_PORT || 5432,
 });
 
 const createTable = async () => {
