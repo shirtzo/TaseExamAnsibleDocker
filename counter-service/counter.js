@@ -1,15 +1,14 @@
 const express = require('express');
 const { Pool } = require('pg');
 const app = express();
-
-let visitCount = 0;
+const port = process.env.PORT || 4000;
 
 const pool = new Pool({
-  user: 'user',
-  host: 'localhost',
-  database: 'postgres',
-  password: 'mysecretpassword',
-  port: 5432,
+  user: process.env.DB_USER || 'user',
+  host: process.env.DB_HOST || 'localhost',
+  database: process.env.DB_NAME || 'postgres',
+  password: process.env.DB_PASSWORD || 'mysecretpassword',
+  port: process.env.DB_PORT || 5432,
 });
 
 const createTable = async () => {
@@ -24,22 +23,27 @@ const createTable = async () => {
 };
 
 const updateVisits = async () => {
+  let newCount = 0;
   const result = await pool.query('SELECT count FROM visits WHERE id = 1');
+
   if (result.rows.length === 0) {
     await pool.query('INSERT INTO visits (count) VALUES (1)');
   } else {
-    const newCount = result.rows[0].count + 1;
+    newCount = result.rows[0].count + 1;
     await pool.query('UPDATE visits SET count = $1 WHERE id = 1', [newCount]);
   }
+
+  return (newCount);
 };
 
 app.post('/update-visits', async (req, res) => {
   try {
     console.log("Received a visit update request!");
 
-    await updateVisits();
-    console.log("Visit count updated successfully.");
+    await createTable();
+    const newCount = await updateVisits();
 
+    console.log("Visit count updated successfully.", [newCount]);
     res.status(200).send('Visit count updated');
   } catch (err) {
     console.error("Error updating visit count:", err);
@@ -47,6 +51,6 @@ app.post('/update-visits', async (req, res) => {
   }
 });
 
-app.listen(8081, () => {
-  console.log('Counter service is listening on port 8081');
+app.listen(4000, () => {
+  console.log('Counter service is listening on port 4000');
 });
