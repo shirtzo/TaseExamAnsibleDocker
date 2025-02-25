@@ -32,7 +32,10 @@ pool.query(`
   
       count++;
   
-      await pool.query('INSERT INTO counter (count) VALUES ($1) ON CONFLICT (id) DO UPDATE SET count = $1', [count]);
+      await pool.query(`
+        INSERT INTO counter (id, count) VALUES (1, $1) 
+        ON CONFLICT (id) DO UPDATE SET count = $1
+      `, [count]);
   
       res.status(200).send(`Counter updated: ${count}`);
     } catch (err) {
