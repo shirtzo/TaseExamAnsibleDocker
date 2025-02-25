@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const counterServiceUrl = 'http://localhost:4000/update-visits'; 
+const counterServiceUrl = 'http://counter-service:4000/update-visits'; 
 
 app.get('/', async (req, res) => {
   try {
