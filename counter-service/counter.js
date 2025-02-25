@@ -1,49 +1,52 @@
-const { Pool } = require('pg');
 const express = require('express');
+const { Pool } = require('pg');
 const app = express();
-const port = process.env.PORT || 4000;
+
+let visitCount = 0;
 
 const pool = new Pool({
-  host: process.env.DB_HOST || 'postgres',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'mypassword',
-  database: process.env.DB_NAME || 'postgres',
-  port: process.env.DB_PORT || '5432',
+  user: 'user',
+  host: 'localhost',
+  database: 'postgres',
+  password: 'mysecretpassword',
+  port: 5432,
 });
 
-
-pool.query(`
-    CREATE TABLE IF NOT EXISTS counter (
+const createTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS visits (
       id SERIAL PRIMARY KEY,
-      count INTEGER DEFAULT 0
+      count INT DEFAULT 0
     );
-  `, (err, res) => {
-    if (err) {
-      console.error('Error creating table', err.stack);
-    } else {
-      console.log('Table is ready');
-    }
-  });
+  `;
+  await pool.query(query);
+  console.log("Table 'visits' is ready.");
+};
 
-  app.post('/increment', async (req, res) => {
-    try {
-      const result = await pool.query('SELECT count FROM counter WHERE id = 1');
-      let count = result.rows[0] ? result.rows[0].count : 0;
-  
-      count++;
-  
-      await pool.query(`
-        INSERT INTO counter (id, count) VALUES (1, $1) 
-        ON CONFLICT (id) DO UPDATE SET count = $1
-      `, [count]);
-  
-      res.status(200).send(`Counter updated: ${count}`);
-    } catch (err) {
-      console.error('Error updating counter', err.stack);
-      res.status(500).send('Error updating counter');
-    }
-  });
-  
-  app.listen(port, () => {
-    console.log(`Counter service is running on http://web-service:${port}`);
-  });
+const updateVisits = async () => {
+  const result = await pool.query('SELECT count FROM visits WHERE id = 1');
+  if (result.rows.length === 0) {
+    await pool.query('INSERT INTO visits (count) VALUES (1)');
+  } else {
+    const newCount = result.rows[0].count + 1;
+    await pool.query('UPDATE visits SET count = $1 WHERE id = 1', [newCount]);
+  }
+};
+
+app.post('/update-visits', async (req, res) => {
+  try {
+    console.log("Received a visit update request!");
+
+    await updateVisits();
+    console.log("Visit count updated successfully.");
+
+    res.status(200).send('Visit count updated');
+  } catch (err) {
+    console.error("Error updating visit count:", err);
+    res.status(500).send("Error updating visit count.");
+  }
+});
+
+app.listen(8081, () => {
+  console.log('Counter service is listening on port 8081');
+});

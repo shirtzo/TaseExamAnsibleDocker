@@ -1,26 +1,25 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = process.env.PORT || 3000;
 
-const counterServiceUrl = 'http://counter-service:4000/increment'; 
+app.get('/', async (req, res) => {
+  try {
+    await axios.post('http://localhost:8081/update-visits');
 
-app.use(express.static('public'));
-
-app.get('/', async (_, res) => {
-    try {
-        const response = await axios.post(counterServiceUrl);
-        console.log("Success:", response.data);
-        res.status(200).send("Counter updated successfully");
-    } catch (error) {
-        console.error('Error updating counter:', error);
-        res.status(500).send('Error updating counter');
-    }
+    res.send(`
+      <html>
+        <body>
+          <h1>Hello World</h1>
+          <p>Every time you visit this page, the visit count will be updated in the database.</p>
+        </body>
+      </html>
+    `);
+  } catch (err) {
+    console.error("Error contacting counter service:", err);
+    res.status(500).send("Error updating visit count.");
+  }
 });
 
-
-
-
-app.listen(port, () => {
-    console.log(`Server is running on http://web-service:${port}`);
+app.listen(8080, () => {
+  console.log('Web service is listening on port 8080');
 });
