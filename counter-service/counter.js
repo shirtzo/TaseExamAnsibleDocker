@@ -42,5 +42,5 @@ pool.query(`
   });
   
   app.listen(port, () => {
-    console.log(`Counter service is running on http://localhost:${port}`);
+    console.log(`Counter service is running on http://web-service:${port}`);
   });
