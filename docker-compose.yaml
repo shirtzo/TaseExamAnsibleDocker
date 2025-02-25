@@ -17,7 +17,7 @@ services:
       - my-network
 
   web-service:
-    image: shirtzo/web-service:1.0.3
+    image: shirtzo/web-service:1.0.4
     container_name: web-service
     ports:
       - "3000:3000"
