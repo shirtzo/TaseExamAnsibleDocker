@@ -5,9 +5,9 @@ const port = process.env.PORT || 4000;
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER || 'postgres',
-  host: process.env.POSTGRES_HOST || 'localhost',
+  host: process.env.POSTGRES_HOST || 'postgres',
   database: process.env.POSTGRES_NAME || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'mysecretpassword',
+  password: process.env.POSTGRES_PASSWORD || 'mypassword',
   port: process.env.POSTGRES_PORT || 5432,
 });
 
