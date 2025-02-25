@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   counter-service:
-    image: shirtzo/counter-service:1.0.0
+    image: shirtzo/counter-service:1.0.1
     container_name: counter-service
     ports:
       - "4000:4000"
@@ -17,7 +17,7 @@ services:
       - my-network
 
   web-service:
-    image: shirtzo/web-service:1.0.0
+    image: shirtzo/web-service:1.0.1
     container_name: web-service
     ports:
       - "3000:3000"
@@ -28,7 +28,7 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: postgres-db
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
