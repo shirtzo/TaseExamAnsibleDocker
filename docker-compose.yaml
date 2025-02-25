@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   counter-service:
-    build: https://raw.githubusercontent.com/shirtzo/TaseExamAnsibleDocker/main/counter-service/Dockerfile
+    build:
+      context: https://github.com/shirtzo/TaseExamAnsibleDocker.git
+      dockerfile: counter-service/Dockerfile
     container_name: counter-service
     ports:
       - "4000:4000"
@@ -17,7 +19,9 @@ services:
       - my-network
 
   web-service:
-    build: https://raw.githubusercontent.com/shirtzo/TaseExamAnsibleDocker/main/web-service/Dockerfile
+    build:
+      context: https://github.com/shirtzo/TaseExamAnsibleDocker.git
+      dockerfile: web-service/Dockerfile
     container_name: web-service
     ports:
       - "3000:3000"
