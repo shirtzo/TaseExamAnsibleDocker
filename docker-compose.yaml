@@ -4,7 +4,7 @@ services:
   counter-service:
     build:
       context: https://github.com/shirtzo/TaseExamAnsibleDocker.git
-      dockerfile: counter-service/Dockerfile
+      dockerfile: /home/ec2-user/TaseExamAnsibleDocker
     container_name: counter-service
     ports:
       - "4000:4000"
@@ -21,7 +21,7 @@ services:
   web-service:
     build:
       context: https://github.com/shirtzo/TaseExamAnsibleDocker.git
-      dockerfile: web-service/Dockerfile
+      dockerfile: /home/ec2-user/TaseExamAnsibleDocker
     container_name: web-service
     ports:
       - "3000:3000"
