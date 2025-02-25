@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 app.get('/', async (_, res) => {
     try {
-        const response = await axios.post('counterServiceUrl');
+        const response = await axios.post(counterServiceUrl);
         console.log("Success:", response.data);
         res.status(200).send("Counter updated successfully");
     } catch (error) {
@@ -22,5 +22,5 @@ app.get('/', async (_, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://web-service:${port}`);
 });
