@@ -3,7 +3,7 @@ const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const counterServiceUrl = 'http://localhost:4000/increment'; 
+const counterServiceUrl = 'http://counter-service:4000/increment'; 
 
 app.use(express.static('public'));
 
