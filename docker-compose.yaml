@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   counter-service:
-    image: shirtzo/counter-service:1.0.6
+    image: shirtzo/counter-service:1.0.7
     container_name: counter-service
     ports:
       - "4000:4000"
@@ -17,7 +17,7 @@ services:
       - my-network
 
   web-service:
-    image: shirtzo/web-service:1.0.4
+    image: shirtzo/web-service:1.0.5
     container_name: web-service
     ports:
       - "3000:3000"
