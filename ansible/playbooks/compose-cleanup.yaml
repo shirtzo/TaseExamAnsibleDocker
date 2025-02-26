@@ -1,0 +1,41 @@
+---
+- name: Cleanup Docker and remove all related components
+  hosts: all
+  become: yes
+
+  vars_files:
+    - vars.yaml
+
+  tasks:
+    - name: Stop and remove all containers
+      community.docker.docker_container:
+        name: all
+        state: absent
+
+    - name: Remove all unused images
+      community.docker.docker_image:
+        name: all
+        state: absent
+
+    - name: Remove all Docker volumes
+      community.docker.docker_volume:
+        name: all
+        state: absent
+
+    - name: Remove Docker leftovers (images, containers, volumes, networks)
+      command: docker system prune -af
+
+    - name: Remove Docker Compose file
+      file:
+        path: "{{ compose_file_dest }}/docker-compose.yaml"
+        state: absent
+
+    - name: Uninstall Docker Compose
+      file:
+        path: "{{ compose_package_dest }}"
+        state: absent
+
+    - name: Uninstall Docker (if installed)
+      package:
+        name: docker
+        state: absent
