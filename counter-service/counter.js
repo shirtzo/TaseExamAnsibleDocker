@@ -7,7 +7,7 @@ const pool = new Pool({
   user: process.env.POSTGRES_USER || 'postgres',
   host: process.env.POSTGRES_HOST || 'postgres',
   database: process.env.POSTGRES_NAME || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'mypassword',
+  password: process.env.POSTGRES_PASSWORD || 'password',
   port: process.env.POSTGRES_PORT || 5432,
 });
 
@@ -51,6 +51,6 @@ app.post('/update-visits', async (req, res) => {
   }
 });
 
-app.listen(4000, () => {
-  console.log('Counter service is listening on port 4000');
+app.listen(port, () => {
+  console.log(`Counter service is listening on ${port} 4000`);
 });
