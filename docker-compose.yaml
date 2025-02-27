@@ -8,7 +8,7 @@ services:
       - "4000:4000"
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=/run/secrets/postgres_password
+      - POSTGRES_PASSWORD=/run/secrets/postgres_password.txt
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     depends_on:
@@ -28,7 +28,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=/run/secrets/postgres_password
+      - POSTGRES_PASSWORD=/run/secrets/postgres_password.txt
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     ports:
