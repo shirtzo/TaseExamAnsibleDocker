@@ -6,11 +6,9 @@ services:
     container_name: counter-service
     ports:
       - "4000:4000"
-    secrets:
-      - postgres_password
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=/run/secrets/postgres_password
+      - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     depends_on:
@@ -30,19 +28,13 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=/run/secrets/postgres_password
+      - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     ports:
       - "5432:5432"
-    secrets:
-      - postgres_password
     volumes:
       - pg_data:/var/lib/postgresql/data
 
 volumes:
   pg_data:
-
-secrets:
-  postgres_password:
-    file: /home/ec2-user/secrets/postgres_password.txt
