@@ -1,6 +1,6 @@
 ---
 - name: Cleanup Docker and remove all related components
-  hosts: all
+  hosts: servers
   become: yes
 
   vars_files:

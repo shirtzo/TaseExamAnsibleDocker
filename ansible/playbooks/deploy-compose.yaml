@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker Compose application from public GitHub repository
-  hosts: all
+  hosts: servers
   become: yes
 
   vars_files:
