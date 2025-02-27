@@ -33,5 +33,5 @@
 
     - name: Uninstall Docker (if installed)
       package:
-      name: docker
+        name: docker
         state: absent
