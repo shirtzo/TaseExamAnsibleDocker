@@ -1,0 +1,3 @@
+---
+- name: Remove Docker leftovers (images, containers, volumes, networks)
+  command: docker system prune -af

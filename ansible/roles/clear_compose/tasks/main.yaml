@@ -1,0 +1,15 @@
+---
+- name: Remove selected containers
+  import_tasks: remove_containers.yaml
+
+- name: Prune Docker system
+  import_tasks: prune_docker.yaml
+
+- name: Remove Docker Compose file
+  import_tasks: remove_compose.yaml
+
+- name: Uninstall Docker Compose
+  import_tasks: uninstall_compose.yaml
+
+- name: Uninstall Docker
+  import_tasks: uninstall_docker.yaml

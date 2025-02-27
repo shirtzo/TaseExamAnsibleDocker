@@ -1,0 +1,5 @@
+---
+- name: Uninstall Docker Compose
+  file:
+    path: "{{ compose_package_dest }}"
+    state: absent

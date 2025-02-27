@@ -1,0 +1,6 @@
+---
+- name: Stop and remove chosen containers
+  docker_container:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ containers_to_remove }}"
