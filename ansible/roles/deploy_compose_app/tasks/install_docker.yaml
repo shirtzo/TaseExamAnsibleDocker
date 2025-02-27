@@ -1,0 +1,10 @@
+- name: Install Docker
+  package:
+    name: docker
+    state: present
+
+- name: Ensure Docker is running
+  systemd:
+    name: docker
+    state: started
+    enabled: yes

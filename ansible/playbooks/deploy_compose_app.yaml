@@ -1,0 +1,7 @@
+---
+- name: Deploy Docker Compose App
+  hosts: servers
+  become: yes
+
+  roles:
+    - deploy_compose_app
