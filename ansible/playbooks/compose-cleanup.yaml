@@ -1,26 +1,22 @@
----
 - name: Cleanup Docker and remove all related components
-  hosts: servers
+  hosts: all
   become: yes
+
+  vars:
+    containers_to_remove:
+      - web-service
+      - counter-service
+      - postgres
 
   vars_files:
     - vars.yaml
 
   tasks:
-    - name: Stop and remove all containers
-      community.docker.docker_container:
-        name: all
+    - name: Stop and remove chosen  containers
+      docker_container:
+        name: "{{ item }}"
         state: absent
-
-    - name: Remove all unused images
-      community.docker.docker_image:
-        name: all
-        state: absent
-
-    - name: Remove all Docker volumes
-      community.docker.docker_volume:
-        name: all
-        state: absent
+      loop: "{{ containers_to_remove }}"
 
     - name: Remove Docker leftovers (images, containers, volumes, networks)
       command: docker system prune -af
@@ -30,12 +26,12 @@
         path: "{{ compose_file_dest }}/docker-compose.yaml"
         state: absent
 
-    - name: Uninstall Docker Compose
+        - name: Uninstall Docker Compose
       file:
         path: "{{ compose_package_dest }}"
         state: absent
 
     - name: Uninstall Docker (if installed)
       package:
-        name: docker
+      name: docker
         state: absent
