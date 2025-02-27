@@ -8,13 +8,11 @@ services:
       - "4000:4000"
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_PASSWORD=/run/secrets/postgres_password
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     depends_on:
       - postgres
-    networks:
-      - my-network
 
   web-service:
     image: shirtzo/web-service:1.0.5
@@ -23,8 +21,6 @@ services:
       - "3000:3000"
     depends_on:
       - counter-service
-    networks:
-      - my-network
 
   postgres:
     image: postgres:15
@@ -32,18 +28,19 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_PASSWORD=/run/secrets/postgres_password
       - POSTGRES_DB=postgres
       - POSTGRES_HOST=postgres
     ports:
       - "5432:5432"
+    secrets:
+      - postgres_password
     volumes:
       - pg_data:/var/lib/postgresql/data
-    networks:
-      - my-network
-
-networks:
-  my-network:
 
 volumes:
   pg_data:
+
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
