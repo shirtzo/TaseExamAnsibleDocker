@@ -45,4 +45,4 @@ volumes:
 
 secrets:
   postgres_password:
-    file: ./secrets/postgres_password.txt
+    file: /home/ec2-user/secrets/postgres_password.txt
