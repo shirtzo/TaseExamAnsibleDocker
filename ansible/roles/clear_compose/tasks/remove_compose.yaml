@@ -1,0 +1,5 @@
+---
+- name: Remove Docker Compose file
+  file:
+    path: "{{ compose_file_dest }}/docker-compose.yaml"
+    state: absent

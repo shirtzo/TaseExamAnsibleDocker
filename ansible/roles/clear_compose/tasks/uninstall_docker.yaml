@@ -1,0 +1,5 @@
+---
+- name: Uninstall Docker (if installed)
+  package:
+    name: docker
+    state: absent

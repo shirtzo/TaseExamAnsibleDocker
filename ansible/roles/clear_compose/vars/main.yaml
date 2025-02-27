@@ -1,0 +1,6 @@
+compose_file_dest: "/home/ec2-user"
+compose_package_dest: "/usr/local/bin/docker-compose"
+containers_to_remove:
+  - web-service
+  - counter-service
+  - postgres

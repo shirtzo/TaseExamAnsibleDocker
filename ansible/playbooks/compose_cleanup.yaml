@@ -1,0 +1,6 @@
+- name: Cleanup Docker and remove all related components
+  hosts: servers
+  become: yes
+
+  roles:
+    - clear_compose
