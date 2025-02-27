@@ -1,0 +1,5 @@
+- name: Install Docker Compose using GitHub
+  get_url:
+    url: "{{ compose_package_url }}"
+    dest: "{{ compose_package_dest }}"
+    mode: '0755'

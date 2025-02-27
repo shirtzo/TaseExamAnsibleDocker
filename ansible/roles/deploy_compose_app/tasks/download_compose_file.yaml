@@ -1,0 +1,5 @@
+- name: Download docker-compose.yml from GitHub
+  get_url:
+    url: "{{ compose_file_url }}"
+    dest: "{{ compose_file_dest }}"
+    mode: '0644'

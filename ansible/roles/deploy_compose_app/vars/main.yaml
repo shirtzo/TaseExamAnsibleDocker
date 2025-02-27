@@ -1,0 +1,7 @@
+compose_file_dest: "/home/ec2-user"
+compose_package_dest: "/usr/local/bin/docker-compose"
+
+compose_version: "v2.29.2"
+compose_package_url: "https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-{{ ansible_system | lower }}-{{ ansible_architecture }}"
+compose_file_url: "https://raw.githubusercontent.com/shirtzo/TaseExamAnsibleDocker/main/docker-compose.yaml"
+

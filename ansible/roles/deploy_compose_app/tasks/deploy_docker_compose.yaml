@@ -1,0 +1,4 @@
+- name: Run docker compose up in a specific directory
+  command: docker-compose up -d
+  args:
+    chdir: "{{ compose_file_dest }}"
