@@ -6,6 +6,8 @@ services:
     container_name: counter-service
     ports:
       - "4000:4000"
+    secrets:
+      - postgres_password
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=/run/secrets/postgres_password.txt
